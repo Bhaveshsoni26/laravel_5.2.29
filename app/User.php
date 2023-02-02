@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 class User extends Authenticatable
 {
     /**
@@ -28,4 +27,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Role');
     }
+    // public function hasRole(Role $role, User $user)
+    // {
+    //     return $user->roles();
+    // }
 }
