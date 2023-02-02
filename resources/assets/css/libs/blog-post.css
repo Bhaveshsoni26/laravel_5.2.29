@@ -7,6 +7,9 @@
 body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+.myBlog{
+    background: #292929;
+}
 
 footer {
     margin: 50px 0;
