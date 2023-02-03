@@ -35,3 +35,7 @@
 .toppad
 {margin-top:20px;
 }
+span.error{
+    color: #a94442;
+    font-weight: 600;
+}

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\UserRequest;
 use App\Role;
 use App\User;
+use Eelcol\LaravelBootstrapAlerts\Facade\BootstrapAlerts;
 
 class AdminUsersController extends Controller
 {
@@ -42,10 +44,13 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
-        return $request->all();
+        // dd($request->all());
+        User::create($request->all());
+        return redirect('/admin/users');
+        // return $request->all();
+        // $request->flashExcept('password');
     }
 
     /**

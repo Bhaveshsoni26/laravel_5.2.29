@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3124744e0d647d83d3bb82d13ba8069",
+    "content-hash": "cf97a015d3c19f777b67f86c62063947",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -170,6 +170,62 @@
                 "words"
             ],
             "time": "2021-04-16T17:34:40+00:00"
+        },
+        {
+            "name": "eelcol/laravel-bootstrap-alerts",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eelcol/laravel-bootstrap-alerts.git",
+                "reference": "8c04b943e2a5b99fcd2a7193a8e4ac736edfcd67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eelcol/laravel-bootstrap-alerts/zipball/8c04b943e2a5b99fcd2a7193a8e4ac736edfcd67",
+                "reference": "8c04b943e2a5b99fcd2a7193a8e4ac736edfcd67",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.0|^6.0|^7.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Eelcol\\LaravelBootstrapAlerts\\AlertsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Eelcol\\LaravelBootstrapAlerts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eelco Luurtsema",
+                    "email": "eelcoluurtsema@gmail.com"
+                }
+            ],
+            "description": "Easily implement alert messages in your Bootstrap design using Laravel.",
+            "keywords": [
+                "alerts",
+                "bootstrap",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/eelcol/laravel-bootstrap-alerts/issues",
+                "source": "https://github.com/eelcol/laravel-bootstrap-alerts/tree/master"
+            },
+            "time": "2020-08-17T21:29:12+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

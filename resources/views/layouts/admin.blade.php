@@ -12,9 +12,12 @@
     <title>Admin</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{asset('css/app.css')}}" rel="stylesheet">
-
-    <link href="{{asset('css/all.css')}}" rel="stylesheet">
+    <link href="{{asset('css/blog-post.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
+    <link href="{{asset('css/metisMenu.css')}}" rel="stylesheet">
+    <link href="{{asset('css/sb-admin-2.css')}}" rel="stylesheet">
+    <link href="{{asset('css/styles.css')}}" rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
