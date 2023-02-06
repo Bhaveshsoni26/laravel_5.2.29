@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserRequest;
 use App\Photo;
 use App\Role;
 use App\User;
 use Eelcol\LaravelBootstrapAlerts\Facade\BootstrapAlerts;
+use PhpParser\Node\Stmt\If_;
 
 class AdminUsersController extends Controller
 {
@@ -91,8 +93,11 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        //
-        return view('admin.users.edit');
+        $user = User::findOrFail($id);
+
+        $roles = Role::lists('name','id')->all();
+
+        return view('admin.users.edit',compact('user','roles'));
 
     }
 
@@ -103,9 +108,53 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserEditRequest $request, $id)
     {
         //
+        $user = User::findOrFail($id);
+
+        $input = $request->all();
+        $file = $request->file('photo_id');
+        // dd($input);
+        if($file){ // if new image is selected for profile of user
+            dd('file_exist');
+            $user = User::where('id',$id)->first();
+            $docs = Photo::find($user->photo_id); 
+            if($docs){
+                dd('new file');
+                // delete old file 
+                $oldFileName = $docs->file; // old profile image name
+                $file_path = public_path().$oldFileName; // old profile image path in public
+                if(file_exists($file_path)){
+                    unlink($file_path); //delete from public folder
+                }
+                $name = time().$file->getClientOriginalName(); // create new filename for image
+                $file->move('images',$name); // move file in public/images folder
+                $docs->update(['file'=>$name]); // add new file name in photo table
+                $input['photo_id'] = $docs->id;
+                // delete old file 
+            }else{
+                dd('old file');
+                $name = time().$file->getClientOriginalName(); // create new filename for image
+                $newDoc = Photo::create(['file'=>$name]);
+                $file->move('images',$name); // move file in public/images folder
+                $input['photo_id'] = $newDoc->id;
+            }
+
+        }
+        if (!request('password') || request('password') == null ) {
+            unset($input['password']);   
+        }
+        if (!request('confirm-password') || request('confirm-password') == null ) {
+            unset($input['confirm-password']);
+        }
+        if(request('password')){
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+        $user->update($input);
+
+        return redirect('/admin/users');
     }
 
     /**
@@ -116,6 +165,10 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->delete();
+
+        return back();
     }
 }
