@@ -12,6 +12,7 @@ use App\Role;
 use App\User;
 use Eelcol\LaravelBootstrapAlerts\Facade\BootstrapAlerts;
 use PhpParser\Node\Stmt\If_;
+use Whossun\Toastr\Facades\Toastr;
 
 class AdminUsersController extends Controller
 {
@@ -153,6 +154,9 @@ class AdminUsersController extends Controller
             $input['password'] = bcrypt($request->password);
         }
         $user->update($input);
+
+        toastr()->success('User Updated Successfully', 'Success', ["positionClass" => "toast-top-right"]);
+        // Toastr::success('User Updated Successfully', 'Success', ["positionClass" => "toast-top-right"]);
 
         return redirect('/admin/users');
     }
