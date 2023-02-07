@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AuthController extends Controller
 {
@@ -48,7 +49,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return FacadesValidator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',

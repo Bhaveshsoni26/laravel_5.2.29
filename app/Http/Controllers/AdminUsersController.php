@@ -11,6 +11,7 @@ use App\Photo;
 use App\Role;
 use App\User;
 use Eelcol\LaravelBootstrapAlerts\Facade\BootstrapAlerts;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Stmt\If_;
 use Whossun\Toastr\Facades\Toastr;
@@ -25,9 +26,15 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-
+        // $active = User::where('is_active',1)->get();
         $users = User::with('roles')->get();
+        $loggedInUser = Auth::user();
+        // dd($loggedInUser);
+        if($loggedInUser->is_active == 1){
         return view('admin.users.index', compact('users'));
+        }else{
+            return view('admin.index', compact('users'));
+        }
     }
 
     /**
@@ -39,9 +46,14 @@ class AdminUsersController extends Controller
     {
         //
         $roles = Role::lists('name','id')->all();
+        $loggedInUser = Auth::user();
+        // dd($loggedInUser);
+        if($loggedInUser->is_active == 1){
+            return view('admin.users.create',compact('roles'));
+        }else{
+            return view('admin.index');
+        }
 
-
-        return view('admin.users.create',compact('roles'));
     }
 
     /**
