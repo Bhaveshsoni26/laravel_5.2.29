@@ -11,6 +11,7 @@ use App\Photo;
 use App\Role;
 use App\User;
 use Eelcol\LaravelBootstrapAlerts\Facade\BootstrapAlerts;
+use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Stmt\If_;
 use Whossun\Toastr\Facades\Toastr;
 
@@ -38,6 +39,7 @@ class AdminUsersController extends Controller
     {
         //
         $roles = Role::lists('name','id')->all();
+
 
         return view('admin.users.create',compact('roles'));
     }
@@ -68,6 +70,9 @@ class AdminUsersController extends Controller
         $input['password']= bcrypt($request->password);
 
         User::create($input);
+
+        Toastr::success('User Created Successfully', 'Success', ["positionClass" => "toast-top-right"]);
+
         return redirect('/admin/users');
         // return $request->all();
         // $request->flashExcept('password');
@@ -118,11 +123,11 @@ class AdminUsersController extends Controller
         $file = $request->file('photo_id');
         // dd($input);
         if($file){ // if new image is selected for profile of user
-            dd('file_exist');
+            // dd('file_exist');
             $user = User::where('id',$id)->first();
             $docs = Photo::find($user->photo_id); 
             if($docs){
-                dd('new file');
+                // dd('new file');
                 // delete old file 
                 $oldFileName = $docs->file; // old profile image name
                 $file_path = public_path().$oldFileName; // old profile image path in public
@@ -135,7 +140,7 @@ class AdminUsersController extends Controller
                 $input['photo_id'] = $docs->id;
                 // delete old file 
             }else{
-                dd('old file');
+                // dd('old file');
                 $name = time().$file->getClientOriginalName(); // create new filename for image
                 $newDoc = Photo::create(['file'=>$name]);
                 $file->move('images',$name); // move file in public/images folder
@@ -155,8 +160,9 @@ class AdminUsersController extends Controller
         }
         $user->update($input);
 
-        toastr()->success('User Updated Successfully', 'Success', ["positionClass" => "toast-top-right"]);
-        // Toastr::success('User Updated Successfully', 'Success', ["positionClass" => "toast-top-right"]);
+        // Session::flash('success', 'User Has Been Updated Successfully');
+        // toastr()->success('User Updated Successfully', 'Success');
+        Toastr::success('User Updated Successfully', 'Success', ["positionClass" => "toast-top-right"]);
 
         return redirect('/admin/users');
     }
@@ -169,10 +175,22 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
+        $docs = Photo::find($user->photo_id); 
+        if($docs){
+            $oldFileName = $docs->file; // old profile image name
+            $file_path = public_path().$oldFileName; // old profile image path in public
+            if(file_exists($file_path)){
+                unlink($file_path); //delete from public folder
+            }
+            $docs->delete();//Delete from photo table
+        }
 
         $user->delete();
 
+        Toastr::error('User Deleted Successfully', 'Warning', ["positionClass" => "toast-top-right"]);
+
         return back();
+
     }
 }

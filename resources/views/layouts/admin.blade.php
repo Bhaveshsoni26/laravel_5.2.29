@@ -18,6 +18,8 @@
     <link href="{{asset('css/metisMenu.css')}}" rel="stylesheet">
     <link href="{{asset('css/sb-admin-2.css')}}" rel="stylesheet">
     <link href="{{asset('css/styles.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -375,7 +377,14 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="{{asset('js/all.js')}}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/metisMenu.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
+
+    @yield('scripts')
 
 
     @yield('footer')
