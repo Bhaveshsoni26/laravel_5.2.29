@@ -11,7 +11,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role_id','is_active','photo_id'
+        'name', 
+        'email', 
+        'password',
+        'role_id',
+        'is_active',
+        'photo_id',
     ];
 
     /**
@@ -40,5 +45,35 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
+    public function setPasswordAttribute($password){
+        if(!empty($password)){
+            $this->attributes['password'] = bcrypt($password);
+        }
+    }
+
+    public function getNameAttribute($name){
+        return ucfirst($name);
+    }
+
+    public function getEmailAttribute($email){
+        return ucfirst($email);
+    }
+
+    public function getIsactiveAttribute($is_active){
+        return ucfirst($is_active);
+    }
+
+    public function getRoleidAttribute($role_id){
+        return ucfirst($role_id);
+    }
+
+    public function getPhotoidAttribute($photo_id){
+        return ucfirst($photo_id);
     }
 }
