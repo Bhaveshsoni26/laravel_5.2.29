@@ -21,7 +21,8 @@ class Admin
                 return $next($request);
             }
         }
-        return redirect('/home');
+        // Auth::logout();
+        return redirect('/admin');
         // return $next($request);
     }
 }

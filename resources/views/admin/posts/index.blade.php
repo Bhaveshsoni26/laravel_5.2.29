@@ -15,19 +15,31 @@
             <th>Body</th>
             <th>Created</th>
             <th>Updated</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach($posts as $post)
         <tr>
             <td>{{ $post->id }}</td>
-            <td><img height="50" src="{{ $post->photo ? $post->photo->file : 'Not Available' }}" alt=""></td>
+            <td><img height="50" width="60" src="{{ $post->photo ? $post->photo->file : 'Not Available' }}" alt=""></td>
             <td>{{ $post->user->name }}</td>
-            <td>{{ $post->category_id }}</td>
+            <td>{{ $post->category ? $post->category->name : 'Uncategorized' }}</td>
             <td>{{ $post->title }}</td>
-            <td>{{ $post->body }}</td>
+            <td>{{ str_limit($post->body, 9) }}</td>
             <td>{{ $post->created_at->diffForHumans() }}</td>
             <td>{{ $post->updated_at->diffForHumans() }}</td>
+            <td>
+                {!! Form::open(['method'=>'POST', 'action'=>['AdminPostsController@destroy', $post->id], 'method'=>'DELETE' ]) !!}
+
+                    <!-- {{Form::hidden('_method', 'DESTROY')}} -->
+                    
+                    <!-- {{Form::submit('', ['class' => 'fa fa-trash-o fa-lg'])}} -->
+                    <button type="submit" class="fa fa-trash-o btn btn-danger"></button>
+                    <!-- <i class="fa fa-trash-o fa-lg"></i> -->
+                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="fa fa-pencil btn btn-primary"></a>
+                {!! Form::close() !!}
+            </td>
         </tr>
         @endforeach
     </tbody>

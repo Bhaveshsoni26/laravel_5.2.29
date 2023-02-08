@@ -146,7 +146,8 @@
                         <li>
                             <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-
+                        
+                        @if(auth()->user()->hasRole('Administrator'))
                         <li>
                             <a href="#"><i class="fa fa-regular fa-user fa-fw"></i>&nbsp;Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -157,10 +158,10 @@
                                 <li>
                                     <a href="{{ route('admin.users.create') }}">Create User</a>
                                 </li>
-
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        @endif
 
                         <li>
                             <a href="#"><i class="fa fa-thin fa-rss fa-fw"></i>&nbsp;Posts<span class="fa arrow"></span></a>

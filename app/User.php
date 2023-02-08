@@ -32,16 +32,21 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class,'role_id');
     }
-    // public function hasRole(Role $role, User $user)
-    // {
-    //     return $user->roles();
-    // }
+    public function hasRole()
+    {
+        // dd($this->roles->name);
+        if($this->roles->name == 'Administrator'){
+            return true;
+        }
+        return false;
+    }
+
     public function photo(){
         return $this->belongsTo('App\Photo');
     }
 
     public function isAdmin(){
-        if($this->roles->name == "administrator" && $this->is_active == 1){
+        if($this->roles->name == "Administrator" && $this->is_active == 1){
             return true;
         }
         return false;
@@ -51,11 +56,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
-    public function setPasswordAttribute($password){
-        if(!empty($password)){
-            $this->attributes['password'] = bcrypt($password);
-        }
-    }
+    // public function setPasswordAttribute($password){
+    //     if(!empty($password)){
+    //         $this->attributes['password'] = bcrypt($password);
+    //     }
+    // }
 
     public function getNameAttribute($name){
         return ucfirst($name);
@@ -63,17 +68,5 @@ class User extends Authenticatable
 
     public function getEmailAttribute($email){
         return ucfirst($email);
-    }
-
-    public function getIsactiveAttribute($is_active){
-        return ucfirst($is_active);
-    }
-
-    public function getRoleidAttribute($role_id){
-        return ucfirst($role_id);
-    }
-
-    public function getPhotoidAttribute($photo_id){
-        return ucfirst($photo_id);
     }
 }

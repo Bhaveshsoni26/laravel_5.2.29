@@ -23,17 +23,24 @@ class AdminUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        if(!Auth::check()){
+            Auth::logout();
+            return redirect('/login');
+        }
+    }
     public function index()
     {
         //
         // $active = User::where('is_active',1)->get();
         $users = User::with('roles')->get();
-        $loggedInUser = Auth::user();
+        $loggedInUser = Auth::user()->isAdmin();
         // dd($loggedInUser);
-        if($loggedInUser->is_active == 1){
+        if($loggedInUser == 1){
         return view('admin.users.index', compact('users'));
         }else{
-            return view('admin.index', compact('users'));
+            return view('errors.401', compact('users'));
         }
     }
 
@@ -46,12 +53,12 @@ class AdminUsersController extends Controller
     {
         //
         $roles = Role::lists('name','id')->all();
-        $loggedInUser = Auth::user();
+        $loggedInUser = Auth::user()->isAdmin();
         // dd($loggedInUser);
-        if($loggedInUser->is_active == 1){
+        if($loggedInUser == 1){
             return view('admin.users.create',compact('roles'));
         }else{
-            return view('admin.index');
+            return view('errors.401');
         }
 
     }
@@ -199,6 +206,9 @@ class AdminUsersController extends Controller
         }
 
         $user->delete();
+        if($user->delete()){
+            return redirect('/login');
+        }
 
         Toastr::error('User Deleted Successfully', 'Warning', ["positionClass" => "toast-top-right"]);
 
