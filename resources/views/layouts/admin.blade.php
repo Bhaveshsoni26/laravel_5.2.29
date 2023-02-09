@@ -1,3 +1,8 @@
+<?php
+if(auth()->user() == null){
+    return redirect('/login');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,22 +151,21 @@
                         <li>
                             <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        
-                        @if(auth()->user()->hasRole('Administrator'))
                         <li>
                             <a href="#"><i class="fa fa-regular fa-user fa-fw"></i>&nbsp;Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ route('admin.users.index') }}">All Users</a>
                                 </li>
-
+                                
                                 <li>
                                     <a href="{{ route('admin.users.create') }}">Create User</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        @endif
+                        <!-- @if(auth()->user()->isAdmin())
+                        @endif -->
 
                         <li>
                             <a href="#"><i class="fa fa-thin fa-rss fa-fw"></i>&nbsp;Posts<span class="fa arrow"></span></a>
@@ -183,11 +187,11 @@
                             <a href="#"><i class="fa fa-light fa-tag fa-fw"></i>&nbsp;Categories<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/categories">All Categories</a>
+                                    <a href="{{ route('admin.categories.index') }}">All Categories</a>
                                 </li>
 
                                 <li>
-                                    <a href="/categories/create">Create Category</a>
+                                    <a href="{{ route('admin.categories.create') }}">Create Category</a>
                                 </li>
 
                             </ul>

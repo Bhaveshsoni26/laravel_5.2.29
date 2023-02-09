@@ -206,9 +206,6 @@ class AdminUsersController extends Controller
         }
 
         $user->delete();
-        if($user->delete()){
-            return redirect('/login');
-        }
 
         Toastr::error('User Deleted Successfully', 'Warning', ["positionClass" => "toast-top-right"]);
 

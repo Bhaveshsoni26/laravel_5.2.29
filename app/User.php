@@ -32,14 +32,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class,'role_id');
     }
-    public function hasRole()
-    {
-        // dd($this->roles->name);
-        if($this->roles->name == 'Administrator'){
-            return true;
-        }
-        return false;
-    }
+    // public function hasRole()
+    // {
+    //     // dd($this->roles->name);
+    //     if($this->roles->name == 'Administrator'){
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     public function photo(){
         return $this->belongsTo('App\Photo');

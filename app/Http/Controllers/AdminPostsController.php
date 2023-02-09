@@ -58,15 +58,18 @@ class AdminPostsController extends Controller
         $input = $request->all();
 
         $user = Auth::user();
-
+        $name = '';
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
-
-        $user->posts()->create($input);
+        
+        $newPost = $user->posts()->create($input);
+        if($file = $request->file('photo_id')){
+            Photo::where('file',$name)->update(['post_id'=>$newPost->id]);
+        }
 
         return redirect('/admin/posts');
     }
