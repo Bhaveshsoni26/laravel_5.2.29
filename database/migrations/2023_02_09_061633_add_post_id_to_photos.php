@@ -30,7 +30,7 @@ class AddPostIdToPhotos extends Migration
     public function down()
     {
         Schema::table('photos', function (Blueprint $table) {
-            //
+            $table->dropColumn('post_id');
         });
     }
 }

@@ -69,4 +69,8 @@ class User extends Authenticatable
     public function getEmailAttribute($email){
         return ucfirst($email);
     }
+
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
 }

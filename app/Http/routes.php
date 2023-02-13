@@ -23,8 +23,7 @@ Route::get('/admin', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/login', 'LoginController@deleteUser')->name('logout');
-// Route::get('/admin', 'HomeController@index')->name('admin');
+
 
 Route::get('/post/{id}', ['as'=>'home.post', 'uses'=>'AdminPostsController@post']);
 
@@ -45,10 +44,6 @@ Route::resource('admin/posts', AdminPostsController::class);
 Route::resource('admin/categories', AdminCategoriesController::class);
 Route::resource('admin/media', AdminMediasController::class);
 
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
-
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
+Route::group(['middleware'=>'auth'], function(){
+    Route::post('comment/reply', 'CommentRepliesController@createReply');
+});
