@@ -1,7 +1,5 @@
 <?php
-if(auth()->user() == null){
-    return redirect('/login');
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +108,9 @@ if(auth()->user() == null){
 
 
 
+        <?php
 
+        /*
             {{--<ul class="nav navbar-nav navbar-right">--}}
             {{--@if(auth()->guest())--}}
             {{--@if(!Request::is('auth/login'))--}}
@@ -130,8 +130,8 @@ if(auth()->user() == null){
             {{--</li>--}}
             {{--@endif--}}
             {{--</ul>--}}
-
-
+            */
+            ?>
 
 
 

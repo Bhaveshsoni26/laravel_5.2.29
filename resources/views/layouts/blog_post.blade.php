@@ -149,12 +149,15 @@
     <!-- /.container -->
 
     <!-- jQuery -->
+    <!-- yield('scripts') -->
     <script src="{{ asset('js/jquery.js') }}"></script>
     <!-- <script src="{{ asset('js/bootstrap.js') }}"></script> -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/metisMenu.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
+
+
     {!! Toastr::message() !!}
 
 </body>

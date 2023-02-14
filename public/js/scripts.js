@@ -68,10 +68,10 @@ $(document).ready(function(){
     //    e.preventDefault();
     //    alert("This is a demo.\n :-)");
     //});
-
-
-
-
-
-
 });
+
+        /**************** Comment Section for personal post **********************/
+
+    $(".comment-reply-container .toggle-reply").click(function() {
+        $(this).next().slideToggle("fast");
+    });

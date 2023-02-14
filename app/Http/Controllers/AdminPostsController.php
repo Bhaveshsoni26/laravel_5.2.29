@@ -11,6 +11,7 @@ use App\Http\Requests\PostsUpdate;
 use App\Photo;
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Whossun\Toastr\Facades\Toastr;
 
 class AdminPostsController extends Controller
@@ -30,7 +31,7 @@ class AdminPostsController extends Controller
     }
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(2);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -56,6 +57,8 @@ class AdminPostsController extends Controller
     public function store(PostsCreateRequest $request)
     {
         $input = $request->all();
+
+        // $title = Str::slug($request->slug);
 
         $user = Auth::user();
         $name = '';
