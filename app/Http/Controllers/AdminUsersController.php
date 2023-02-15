@@ -23,25 +23,20 @@ class AdminUsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        if(!Auth::check()){
-            Auth::logout();
-            return redirect('/login');
-        }
-    }
+    // public function __construct()
+    // {
+    //     if(!Auth::check()){
+    //         Auth::logout();
+    //         return redirect('/login');
+    //     }
+    // }
     public function index()
     {
         //
         // $active = User::where('is_active',1)->get();
         $users = User::with('roles')->get();
-        $loggedInUser = Auth::user()->isAdmin();
-        // dd($loggedInUser);
-        if($loggedInUser == 1){
+        // dd($users);
         return view('admin.users.index', compact('users'));
-        }else{
-            return view('errors.401', compact('users'));
-        }
     }
 
     /**
@@ -52,15 +47,9 @@ class AdminUsersController extends Controller
     public function create()
     {
         //
-        $roles = Role::lists('name','id')->all();
-        $loggedInUser = Auth::user()->isAdmin();
-        // dd($loggedInUser);
-        if($loggedInUser == 1){
-            return view('admin.users.create',compact('roles'));
-        }else{
-            return view('errors.401');
-        }
-
+        $roles = Role::pluck('name','id')->all();
+        
+        return view('admin.users.create',compact('roles'));
     }
 
     /**
@@ -120,7 +109,7 @@ class AdminUsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $roles = Role::lists('name','id')->all();
+        $roles = Role::pluck('name','id')->all();
 
         return view('admin.users.edit',compact('user','roles'));
 

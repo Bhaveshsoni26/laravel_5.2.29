@@ -6,6 +6,7 @@ use App\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\CreateCategories;
 use Whossun\Toastr\Facades\Toastr;
 
 class AdminCategoriesController extends Controller
@@ -17,7 +18,7 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(5);
 
         return view('admin.categories.index', compact('categories'));
     }
@@ -38,7 +39,7 @@ class AdminCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCategories $request)
     {
         Category::create($request->all());
 

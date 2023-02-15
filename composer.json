@@ -7,10 +7,10 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.3.*",
-        "laravelcollective/html": "^5.2",
+        "laravelcollective/html": "5.3.*",
         "eelcol/laravel-bootstrap-alerts": "^1.0",
         "whossun/laravel-toastr": "^1.0",
-        "cviebrock/eloquent-sluggable": "^3.1"
+        "cviebrock/eloquent-sluggable": "^4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

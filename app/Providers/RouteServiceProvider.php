@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapWebRoutes();
+        $this->mapWebRoutes1();
 
         //
     }
@@ -57,6 +58,15 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace, 'middleware' => 'web',
         ], function ($router) {
             require base_path('routes/web.php');
+        });
+    }
+
+    protected function mapWebRoutes1()
+    {
+        Route::group([
+            'namespace' => $this->namespace, 'middleware' => 'web',
+        ], function ($router) {
+            require base_path('routes/admin.php');
         });
     }
 }

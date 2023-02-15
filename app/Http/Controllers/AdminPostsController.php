@@ -21,14 +21,14 @@ class AdminPostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        if(!Auth::check()){
-            // dd(!Auth::check());
-            Auth::logout();
-            return redirect('/login');
-        }
-    }
+    // public function __construct()
+    // {
+    //     if(!Auth::check()){
+    //         // dd(!Auth::check());
+    //         Auth::logout();
+    //         return redirect('/login');
+    //     }
+    // }
     public function index()
     {
         $posts = Post::paginate(2);
@@ -44,7 +44,7 @@ class AdminPostsController extends Controller
     {
         // $posts = Post::all();
         // dd('hello');
-        $categories = Category::lists('name','id')->all();
+        $categories = Category::pluck('name','id')->all();
         return view('admin.posts.create', compact('categories'));
     }
 
@@ -73,7 +73,8 @@ class AdminPostsController extends Controller
         if($file = $request->file('photo_id')){
             Photo::where('file',$name)->update(['post_id'=>$newPost->id]);
         }
-
+        // dd($newPost);
+        Toastr::success('Post Created Successfully', 'Success', ["positionClass" => "toast-top-right"]);
         return redirect('/admin/posts');
     }
 
@@ -98,7 +99,7 @@ class AdminPostsController extends Controller
     {
         $posts = Post::findOrFail($id);
 
-        $categories = Category::lists('name','id')->all();
+        $categories = Category::pluck('name','id')->all();
 
         return view('admin.posts.edit', compact('posts', 'categories'));
     }
@@ -171,8 +172,8 @@ class AdminPostsController extends Controller
         return back();
     }
 
-    public function post($id){
-        $post = Post::findOrFail($id);
+    public function post($slug){
+        $post = Post::findBySlugOrFail($slug);
         // dd($post);
         $comments = $post->comments()->whereIsActive(1)->get();
 

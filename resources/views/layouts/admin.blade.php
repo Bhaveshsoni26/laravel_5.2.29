@@ -156,6 +156,7 @@
                             <a href="#"><i class="fa fa-regular fa-user fa-fw"></i>&nbsp;Users<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
+                                    
                                     <a href="{{ route('admin.users.index') }}">All Users</a>
                                 </li>
                                 
@@ -165,8 +166,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <!-- @if(auth()->user()->isAdmin())
-                        @endif -->
+                        
 
                         <li>
                             <a href="#"><i class="fa fa-thin fa-rss fa-fw"></i>&nbsp;Posts<span class="fa arrow"></span></a>

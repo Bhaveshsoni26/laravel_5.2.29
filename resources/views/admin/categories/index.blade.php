@@ -9,9 +9,12 @@
 <div class="col-sm-6" style="padding-top: 50px;">
     {!! Form::open(['method'=>'POST', 'action'=>'AdminCategoriesController@store']) !!}
     
-    <div class='form-group'>
+    <div class='form-group {{ $errors->has('name')?' has-error ':'' }}'>
     {!! Form::label('name', 'Name ') !!}
     {!! Form::text('name', null, ['class'=>'form-control']) !!}
+    @if ($errors->has('name'))
+            <span class="error">{{ $errors->first('name') }}</span>
+    @endif
     </div>
     
     <div class='form-group'>
@@ -53,5 +56,11 @@
         @endforeach
     </tbody>
 </table>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-5">
+        {{ $categories->render() }}
+    </div>
 </div>
 @endsection
